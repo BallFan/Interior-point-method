@@ -1,4 +1,9 @@
 function [fval, x] = lpipm(c,A,b)
+%input:
+%c is coefficient vector of object function
+%A is coefficient matrix
+%b is right hand side value
+
 [m,n] = size(A);
 %initialization
 [x,y,s] = deal(ones(n,1), zeros(m,1), ones(n,1));
