@@ -4,6 +4,8 @@ function [fval, x] = lpipm(c,A,b)
 %A is coefficient matrix
 %b is right hand side value
 
+%output is flexible
+
 [m,n] = size(A);
 %initialization
 [x,y,s] = deal(ones(n,1), zeros(m,1), ones(n,1));
@@ -23,7 +25,8 @@ end
 fval = c'*x;
 end
 function alpha = step(d)  %find the step for dual or primal problem
-alpha = (isempty(d(:)<0))+(~isempty(d(:)<0))*(min(-0.9*d(d(:)<0)));
+temp = [min(-0.9*d(d(:)<0)), 0.9];
+alpha = temp(isempty(d(:)<0) + 1);
 end
 function [dx, dy, ds] = direction(xd, xp, xc, L, S, A, x, s)
 xi = xp + A*(x.*(xd - xc./x)./s); % r.h.s of the normal equation
